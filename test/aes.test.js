@@ -40,3 +40,13 @@ it('encrypt/decrypt base64', async () => {
   const p = await decryptAes(c, k);
   expect(p).toEqual(new Uint8Array(plain));
 })
+
+it('invalid cyphertext throws exception', async () => {
+  const k = await generateAesKey();
+  const cipher = crypto.pseudoRandomBytes(1234);
+  decryptAes(cipher, k).then(p => {
+    expect(false).toBe(true);
+  }).catch(e => {
+    expect(true).toBe(true);
+  })
+})
